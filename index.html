@@ -3,106 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RexzRamadhan</title>
+<title>Rexz Ramadhan</title>
 
 <style>
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #0f3d2e, #14532d);
+    font-family: Arial;
+    background: linear-gradient(135deg,#064e3b,#022c22);
     color: white;
     text-align: center;
 }
 
-/* HEADER */
-.header {
-    padding: 40px 20px;
-}
-
-.header h1 {
-    font-size: 40px;
+h1 {
     color: gold;
+    font-size: 40px;
 }
 
-.header p {
-    opacity: 0.8;
-}
-
-/* CARD */
 .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
     padding: 20px;
 }
 
 .card {
     background: rgba(255,255,255,0.05);
-    border-radius: 15px;
+    margin: 15px;
     padding: 20px;
-    transition: 0.3s;
+    border-radius: 15px;
 }
 
-.card:hover {
-    transform: scale(1.05);
-    background: rgba(255,255,255,0.1);
-}
-
-/* BUTTON */
 .btn {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 20px;
     background: gold;
     color: black;
+    padding: 12px 20px;
     border-radius: 10px;
     text-decoration: none;
     font-weight: bold;
+    display: inline-block;
+    margin-top: 10px;
 }
 
-/* FOOTER */
-.footer {
-    margin-top: 30px;
-    padding: 20px;
-    opacity: 0.7;
+.btn:hover {
+    background: orange;
+}
+
+/* efek kelap kelip */
+@keyframes glow {
+    0% { box-shadow: 0 0 5px gold; }
+    50% { box-shadow: 0 0 20px gold; }
+    100% { box-shadow: 0 0 5px gold; }
+}
+
+.btn {
+    animation: glow 2s infinite;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-    <h1>🌙 Selamat Ramadhan</h1>
-    <p>Minal Aidzin Walfaizin 🙏</p>
-</div>
+<h1>🌙 Selamat Ramadhan</h1>
+<p>Minal Aidzin Walfaizin 🙏</p>
 
 <div class="container">
 
-    <div class="card">
-        <h2>💸 Minta THR</h2>
-        <p>Klik tombol di bawah buat kirim THR 😁</p>
-        <a class="btn" href="#">Kirim THR</a>
-    </div>
+<div class="card">
+<h2>💸 Minta THR</h2>
+<p>Yang baik hati silakan kirim THR 😁</p>
 
-    <div class="card">
-        <h2>📿 Doa Hari Ini</h2>
-        <p>Semoga puasanya lancar dan penuh berkah</p>
-    </div>
-
-    <div class="card">
-        <h2>🍽️ Menu Buka</h2>
-        <p>Kolak + Es Teh + Gorengan 🔥</p>
-    </div>
-
-    <div class="card">
-        <h2>🎁 Event Lebaran</h2>
-        <p>Bagi-bagi hadiah & THR spesial!</p>
-    </div>
+<a class="btn" href="https://saweria.co/RexzCihuy" target="_blank">
+💰 Kirim THR
+</a>
 
 </div>
 
-<div class="footer">
-    <p>© 2026 RexzHub Ramadhan Edition</p>
+<div class="card">
+<h2>📿 Doa</h2>
+<p>Semoga rezeki kita lancar dan berkah</p>
+</div>
+
 </div>
 
 </body>
