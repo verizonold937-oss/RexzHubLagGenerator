@@ -359,6 +359,7 @@
             justify-content: center;
             gap: 20px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
         .social-links a {
@@ -381,6 +382,35 @@
             color: #0b3b2c;
             transform: translateY(-5px) scale(1.1);
             box-shadow: 0 10px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Saweria Button Khusus */
+        .saweria-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #f5a81c;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 15px auto;
+            border: 2px solid #ffd700;
+            transition: all 0.3s ease;
+            width: fit-content;
+        }
+
+        .saweria-link:hover {
+            background: #ffb82e;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(245, 168, 28, 0.4);
+        }
+
+        .saweria-link i {
+            font-size: 1.5rem;
         }
 
         .copyright {
@@ -584,14 +614,23 @@
             <!-- Footer -->
             <div class="footer">
                 <div class="social-links">
-                    <a href="https://wa.me/6288989208953" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://whatsapp.com/channel/0029VbCGqNi6GcGNHfses407" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                    <!-- YouTube diganti Saweria -->
+                    <a href="https://saweria.co/rexzhub" target="_blank" style="background: #f5a81c;"><i class="fas fa-coffee"></i></a>
                     <a href="#"><i class="fab fa-tiktok"></i></a>
-                    <a href="#"><i class="fab fa-dana"></i></a>
                 </div>
+                
+                <!-- Saweria Link Khusus -->
+                <a href="https://saweria.co/rexzhub" target="_blank" class="saweria-link">
+                    <i class="fas fa-coffee"></i> Dukungan Saweria <i class="fas fa-coffee"></i>
+                </a>
+                
                 <div class="copyright">
                     © 2025 Rexz Hub. All rights reserved.<br>
                     Dibuat dengan <i class="fas fa-heart" style="color: #ff6b6b;"></i> untuk menyambut hari kemenangan<br>
-                    Ikuti kami di <a href="https://wa.me/6288989208953" target="_blank">WhatsApp Channel</a>
+                    Ikuti kami di <a href="https://whatsapp.com/channel/0029VbCGqNi6GcGNHfses407" target="_blank">WhatsApp Channel</a> • 
+                    Dukung kami di <a href="https://saweria.co/rexzhub" target="_blank">Saweria</a>
                 </div>
             </div>
         </div>
