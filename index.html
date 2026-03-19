@@ -8,27 +8,29 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Poppins','Segoe UI',sans-serif;overflow-x:hidden;}
 
-/* Preloader full screen */
-#preloader{
+/* Preloader full screen / start screen */
+#startScreen{
   position:fixed;top:0;left:0;width:100vw;height:100vh;
   background: linear-gradient(135deg,#27ae60,#f1c40f);
   display:flex;justify-content:center;align-items:center;flex-direction:column;
   z-index:9999;
-  transition: opacity 1s ease;
+  color:white;
+  text-align:center;
 }
-#preloader.hidden{opacity:0;visibility:hidden;}
-
-.pre-ketupat{
-  width:80px;height:80px;
-  background:linear-gradient(135deg,#f39c12,#27ae60);
-  transform:rotate(45deg);
-  border-radius:5px;
-  animation: rotatePre 2s linear infinite;
-  box-shadow:0 0 20px #f39c12,0 0 40px #27ae60 inset;
-  margin-bottom:20px;
+#startScreen button{
+  margin-top:20px;
+  padding:12px 25px;
+  font-size:1.1rem;
+  font-weight:bold;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  background:#f39c12;
+  color:#fff;
+  box-shadow:0 0 10px #f1c40f;
+  transition:0.3s;
 }
-@keyframes rotatePre{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
-#preloader h2{color:#fff;text-align:center;text-shadow:0 0 10px #f1c40f,0 0 20px #27ae60; animation: glowTitle 2s ease-in-out infinite alternate; margin-bottom:10px;}
+#startScreen button:hover{background:#f1c40f; box-shadow:0 0 20px #f39c12;}
 
 /* Main content */
 #mainContent{
@@ -44,7 +46,7 @@ body{font-family:'Poppins','Segoe UI',sans-serif;overflow-x:hidden;}
 
 @keyframes gradientBG{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 
-h1{font-size:2.5rem; color:#fff; text-shadow:0 0 10px #f1c40f,0 0 20px #27ae60; animation:glowTitle 2s ease-in-out infinite alternate; margin-bottom:20px;}
+h1{font-size:2.5rem; color:#fff; text-shadow:0 0 10px #f1c40f,0 0 20px #27ae60; margin-bottom:20px;}
 
 .ketupat-wrap{display:flex; justify-content:center; gap:40px; margin:20px 0; flex-wrap:wrap;}
 .ketupat{width:70px;height:70px;background:linear-gradient(135deg,#f39c12,#27ae60);transform:rotate(45deg);border-radius:5px;animation:rotateMain 4s linear infinite;}
@@ -87,16 +89,15 @@ p{margin:10px 0; font-size:1.1rem; color:#fff; text-shadow:0 0 5px #f1c40f;}
 </head>
 <body>
 
-<!-- Preloader -->
-<div id="preloader">
-  <div class="pre-ketupat"></div>
-  <h2>Idul Fitri 1446 H<br>Asset by REXZ<br>Please wait...</h2>
-  <div class="spinner" style="border:5px solid #f3f3f3;border-top:5px solid #27ae60;border-radius:50%;width:50px;height:50px;animation:spin 1s linear infinite;"></div>
+<!-- Start Screen -->
+<div id="startScreen">
+  <h1>Selamat Hari Raya 1446 H</h1>
+  <p>Asset by REXZ</p>
+  <button id="startBtn">✨ Klik untuk mulai ✨</button>
 </div>
 
 <!-- Main content -->
 <div id="mainContent">
-<h1>Selamat Hari Raya 1446 H</h1>
 <div class="ketupat-wrap">
   <div class="ketupat"></div>
   <div class="ketupat"></div>
@@ -124,7 +125,7 @@ p{margin:10px 0; font-size:1.1rem; color:#fff; text-shadow:0 0 5px #f1c40f;}
 <div class="lampu" style="top:300px; left:50%;"></div>
 </div>
 
-<audio id="themeAudio" loop autoplay>
+<audio id="themeAudio" loop>
   <source src="https://assets.mixkit.co/music/preview/mixkit-festive-music-72.mp3" type="audio/mpeg">
 </audio>
 
@@ -145,28 +146,31 @@ const isOnline=true;
 if(isOnline){
   statusContainer.innerHTML=`<a href="https://saweria.co/RexzCihuy" class="online-btn" target="_blank">💚 Online: Klik untuk THR</a>`;
 }else{
-  statusContainer.innerHTML=`<p style="color:red;font-weight:bold;">🔴 Offline</p>`;
+  statusContainer.innerHTML=`<p style="color:red;font-weight:bold;">🔴 Offline: Kasih Di Sekolah🗿</p>`;
 }
 
-// Preloader fade out
-window.addEventListener('load',()=>{
-  setTimeout(()=>{
-    document.getElementById('preloader').classList.add('hidden');
-    document.getElementById('mainContent').style.display='block';
-    document.getElementById('themeAudio').play();
-  },3000);
+// Start button → main content + audio ON
+const startBtn=document.getElementById('startBtn');
+const mainContent=document.getElementById('mainContent');
+const startScreen=document.getElementById('startScreen');
+const audio=document.getElementById('themeAudio');
+const audioBtn=document.getElementById('audioToggle');
+
+startBtn.addEventListener('click',()=>{
+  startScreen.style.display='none';
+  mainContent.style.display='block';
+  audio.play();
+  audioBtn.textContent="🎵 Audio: ON";
 });
 
 // Toggle audio
-const audioBtn = document.getElementById('audioToggle');
-const audio = document.getElementById('themeAudio');
 audioBtn.addEventListener('click',()=>{
   if(audio.paused){
     audio.play();
-    audioBtn.textContent = "🎵 Audio: ON";
+    audioBtn.textContent="🎵 Audio: ON";
   }else{
     audio.pause();
-    audioBtn.textContent = "🎵 Audio: OFF";
+    audioBtn.textContent="🎵 Audio: OFF";
   }
 });
 </script>
