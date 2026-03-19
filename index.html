@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rexz Lag Lite</title>
+
+<style>
+body {
+    background: #0d0d0d;
+    color: white;
+    font-family: Arial;
+    text-align: center;
+}
+
+button {
+    background: red;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    margin: 10px;
+    border-radius: 8px;
+}
+
+.box {
+    width: 30px;
+    height: 30px;
+    background: cyan;
+    margin: 3px;
+    display: inline-block;
+}
+</style>
+</head>
+
+<body>
+
+<h2>⚡ Rexz Lag Lite (Aman HP)</h2>
+
+<button onclick="startLag()">Start</button>
+<button onclick="stopLag()">Stop</button>
+
+<div id="container"></div>
+
+<script>
+let lagInterval;
+
+function startLag() {
+    lagInterval = setInterval(() => {
+        for (let i = 0; i < 10; i++) { // cuma 10
+            let div = document.createElement("div");
+            div.className = "box";
+            document.getElementById("container").appendChild(div);
+        }
+    }, 1000); // 1 detik sekali (ringan)
+}
+
+function stopLag() {
+    clearInterval(lagInterval);
+    document.getElementById("container").innerHTML = "";
+}
+</script>
+
+</body>
+</html>
