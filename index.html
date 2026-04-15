@@ -3,21 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Happy Birthday! 🎂</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Happy Birthday Agna 🎂</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            user-select: none; /* mencegah teks terblok aksen */
         }
 
         body {
-            font-family: 'Quicksand', sans-serif;
+            font-family: 'Poppins', 'Quicksand', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(145deg, #0f0c29, #302b63, #24243e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ========= LAYAR PASSWORD ========= */
+        .password-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(2px);
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .password-box {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            border-radius: 60px;
+            padding: 40px 35px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            border: 1px solid rgba(255,215,0,0.5);
+            box-shadow: 0 25px 45px rgba(0,0,0,0.3), 0 0 20px rgba(255,215,0,0.3);
+            animation: glowPulse 2s infinite;
+        }
+
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 5px rgba(255,215,0,0.3); border-color: rgba(255,215,0,0.3);}
+            100% { box-shadow: 0 0 30px rgba(255,215,0,0.7); border-color: rgba(255,215,0,0.9);}
+        }
+
+        .password-box h2 {
+            color: #ffd966;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .password-box p {
+            color: #fff0d0;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .password-box input {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 50px;
+            border: none;
+            background: rgba(255,255,240,0.95);
+            font-size: 1.1rem;
+            text-align: center;
+            font-family: monospace;
+            letter-spacing: 2px;
+            outline: none;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .password-box button {
+            background: linear-gradient(45deg, #ffb347, #ffcc33);
+            border: none;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c1a0e;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .password-box button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(45deg, #ff9f2e, #ffc107);
+        }
+
+        .error-msg {
+            color: #ff8888;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-shadow: 0 0 3px darkred;
+        }
+
+        /* ========= HALAMAN UTAMA (HBD) ========= */
+        .birthday-container {
+            display: none;
+            width: 100%;
             min-height: 100vh;
             background: linear-gradient(145deg, #ffdde1 0%, #f9c9e2 100%);
-            display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
@@ -26,97 +126,105 @@
             cursor: pointer;
         }
 
-        /* efek balon latar belakang */
+        .birthday-container.show {
+            display: flex;
+        }
+
+        /* balon & confetti */
         .balloon {
             position: fixed;
             bottom: -120px;
-            font-size: 2.4rem;
-            opacity: 0.6;
-            animation: floatUp 9s linear infinite;
+            font-size: 2.5rem;
+            opacity: 0.7;
+            animation: floatUp 10s linear infinite;
             z-index: 1;
             pointer-events: none;
         }
 
         @keyframes floatUp {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(-120vh) rotate(20deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+            100% { transform: translateY(-120vh) rotate(20deg); opacity: 0; }
+        }
+
+        .confetti-piece {
+            position: fixed;
+            width: 10px;
+            height: 20px;
+            background: gold;
+            top: -20px;
+            opacity: 0.8;
+            animation: confettiFall 4s linear forwards;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
 
         /* kartu utama */
         .card {
-            background: rgba(255, 248, 245, 0.95);
-            backdrop-filter: blur(3px);
+            background: rgba(255, 248, 245, 0.96);
+            backdrop-filter: blur(4px);
             border-radius: 68px;
-            box-shadow: 0 30px 45px rgba(255, 105, 180, 0.3), 0 10px 20px rgba(0,0,0,0.1);
-            max-width: 700px;
+            box-shadow: 0 30px 45px rgba(255, 105, 180, 0.4), 0 10px 20px rgba(0,0,0,0.2);
+            max-width: 750px;
             width: 100%;
             padding: 30px 25px 45px;
             text-align: center;
-            transition: all 0.3s ease;
-            z-index: 10;
-            border: 1px solid rgba(255,255,200,0.7);
+            z-index: 20;
+            border: 2px solid rgba(255,220,150,0.9);
+            animation: cardPop 0.6s ease-out;
+        }
+
+        @keyframes cardPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .cake-icon {
-            font-size: 80px;
-            filter: drop-shadow(2px 6px 12px rgba(0,0,0,0.2));
-            animation: bounceSoft 2s infinite ease;
+            font-size: 90px;
+            filter: drop-shadow(2px 8px 15px rgba(0,0,0,0.2));
+            animation: bounceHappy 1.5s infinite ease;
         }
 
-        @keyframes bounceSoft {
+        @keyframes bounceHappy {
             0%,100%{ transform: translateY(0);}
-            50%{ transform: translateY(-8px);}
+            50%{ transform: translateY(-12px);}
         }
 
         h1 {
-            font-size: 3.4rem;
+            font-size: 3.8rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #e84393, #f39c12);
+            background: linear-gradient(135deg, #e84393, #f39c12, #e74c3c);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            margin: 10px 0 8px;
-            letter-spacing: -0.5px;
+            margin: 10px 0 5px;
         }
 
-        .nama {
-            font-size: 2.3rem;
-            font-weight: 700;
+        .nama-spesial {
+            font-size: 2.8rem;
+            font-weight: 800;
             color: #c44569;
-            background: #fff0f5;
+            background: linear-gradient(120deg, #fff0f5, #ffe6f0);
             display: inline-block;
-            padding: 5px 25px;
-            border-radius: 60px;
+            padding: 5px 35px;
+            border-radius: 70px;
             margin: 10px 0 15px;
-            box-shadow: inset 0 0 0 2px white, 0 6px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 2px solid #ffb7c5;
         }
 
         .message {
-            font-size: 1.2rem;
-            line-height: 1.6;
+            font-size: 1.25rem;
+            line-height: 1.7;
             color: #4a2c2d;
             background: #fffafc;
-            padding: 20px 18px;
+            padding: 22px 20px;
             border-radius: 48px;
-            margin: 25px 0;
-            box-shadow: 0 5px 12px rgba(0,0,0,0.05);
-            font-weight: 600;
-        }
-
-        .birthday-date {
-            font-size: 1rem;
-            background: #ffe3ed;
-            display: inline-block;
-            padding: 8px 18px;
-            border-radius: 40px;
-            color: #b34180;
-            margin-bottom: 25px;
+            margin: 20px 0;
             font-weight: 600;
         }
 
@@ -125,30 +233,26 @@
             flex-wrap: wrap;
             gap: 15px;
             justify-content: center;
-            margin-top: 15px;
+            margin: 20px 0 10px;
         }
 
         button {
-            font-family: 'Quicksand', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background: #ff85a1;
             border: none;
             padding: 12px 28px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
             border-radius: 50px;
             color: white;
             cursor: pointer;
             transition: 0.2s;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.15);
         }
 
         button:hover {
             background: #e84393;
             transform: scale(1.02);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
         }
 
         .fireworks-canvas {
@@ -161,246 +265,225 @@
             z-index: 999;
         }
 
-        footer {
-            margin-top: 35px;
-            font-size: 0.8rem;
-            color: #b97f8f;
-            opacity: 0.8;
-        }
-
-        @media (max-width: 550px) {
-            .card { padding: 25px 18px; }
-            h1 { font-size: 2.5rem; }
-            .nama { font-size: 1.7rem; }
-            .message { font-size: 1rem; }
-            button { padding: 10px 18px; font-size: 0.9rem;}
-        }
-
-        /* sentuhan musik note */
         .music-note {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: rgba(255,255,240,0.8);
-            border-radius: 50px;
-            padding: 8px 16px;
-            font-size: 0.8rem;
-            font-weight: bold;
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(8px);
-            z-index: 20;
-            color: #c44569;
+            border-radius: 50px;
+            padding: 8px 18px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            z-index: 30;
+            color: #ffdd99;
             display: flex;
             align-items: center;
             gap: 8px;
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid gold;
+        }
+
+        footer {
+            margin-top: 25px;
+            font-size: 0.75rem;
+            color: #b97f8f;
+        }
+
+        @media (max-width: 550px) {
+            h1 { font-size: 2.5rem; }
+            .nama-spesial { font-size: 1.9rem; }
+            .message { font-size: 1rem; }
         }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <div class="cake-icon">🎂✨🎈</div>
-    <h1>Happy Birthday!</h1>
-    <div class="nama" id="namaTamu">Sayangku</div>
-    <div class="birthday-date">🎉🎁  Today is all about you!  🎁🎉</div>
-    <div class="message" id="pesanUcapan">
-        🌟 Semoga hari spesialmu dipenuhi cinta, tawa, dan mimpi indah.<br>
-        Kamu luar biasa! Terima kasih telah menjadi cahaya di hidup banyak orang.<br>
-        🥳  SELAMAT ULANG TAHUN  🥳
+<!-- LAYAR PASSWORD -->
+<div class="password-screen" id="passwordScreen">
+    <div class="password-box">
+        <h2>🔐 PRIVATE BIRTHDAY 🔐</h2>
+        <p>Masukkan password dari <strong style="color:#ffcc66;">REXZ</strong> ✨</p>
+        <input type="password" id="passwordInput" placeholder="Ketik password" autocomplete="off">
+        <button id="submitPasswordBtn">➡️ ENTER ⬅️</button>
+        <div id="errorMsg" class="error-msg"></div>
+        <p style="font-size:0.7rem; margin-top:20px;">✨ Petunjuk: "hbd" ✨</p>
     </div>
-    <div class="btn-group">
-        <button id="kejutanBtn">🎁 Kejutan Kembang Api 🎆</button>
-        <button id="ubahNamaBtn">💖 Ubah Nama Penerima</button>
-        <button id="resetBtn">🔄 Reset Ucapan</button>
-    </div>
-    <footer>✨ Klik di mana saja untuk kembang api kecil ✨</footer>
 </div>
 
-<div class="music-note" id="musicToggle">
-    <span>🎵</span> <span id="musicStatus">Putar Musik</span>
+<!-- HALAMAN ULANG TAHUN AGNA -->
+<div class="birthday-container" id="birthdayContainer">
+    <div class="card">
+        <div class="cake-icon">🎂🎈🎁✨</div>
+        <h1>HAPPY BIRTHDAY</h1>
+        <div class="nama-spesial" id="namaTamu">AGNA</div>
+        <div class="message" id="pesanUcapan">
+            🎉💖 Selamat ulang tahun yang paling berkilau, Agna! 💖🎉<br>
+            Semoga setiap harimu dipenuhi senyuman, kebahagiaan tak terhingga, <br>
+            dan semua mimpi indah menjadi nyata. Kamu luar biasa! 🥳✨<br>
+            🎂🥂  LOVE & JOY FOR YOU  🥂🎂
+        </div>
+        <div class="btn-group">
+            <button id="kejutanKembangApi">🎆 KEJUTAN FIREWORKS 🎇</button>
+            <button id="musikBtn">🎵 PUTAR MUSIK HBD 🎵</button>
+        </div>
+        <footer>✨ Klik di mana saja untuk kembang api kecil ✨</footer>
+    </div>
+    <div class="music-note" id="musicToggleIcon">
+        <span>🔊</span> <span id="musicStatusText">Musik Off</span>
+    </div>
 </div>
 
-<!-- Canvas untuk efek kembang api modern -->
 <canvas id="fireworksCanvas" class="fireworks-canvas"></canvas>
 
 <script>
     (function(){
-        // ------------------- KONFIGURASI NAMA & PESAN DINAMIS ------------------
-        let currentName = "Sayangku";
-        let customMessage = "🌟 Semoga hari spesialmu dipenuhi cinta, tawa, dan mimpi indah.<br>Kamu luar biasa! Terima kasih telah menjadi cahaya di hidup banyak orang.<br>🥳  SELAMAT ULANG TAHUN  🥳";
-        
-        const namaSpan = document.getElementById('namaTamu');
-        const pesanDiv = document.getElementById('pesanUcapan');
-        
-        function updateUI(){
-            namaSpan.innerText = currentName;
-            pesanDiv.innerHTML = customMessage;
+        // ---------- SISTEM PASSWORD ----------
+        const passwordScreen = document.getElementById('passwordScreen');
+        const birthdayContainer = document.getElementById('birthdayContainer');
+        const passwordInput = document.getElementById('passwordInput');
+        const submitBtn = document.getElementById('submitPasswordBtn');
+        const errorMsgDiv = document.getElementById('errorMsg');
+        const CORRECT_PASSWORD = "hbd";
+
+        function showError(msg){
+            errorMsgDiv.innerText = msg;
+            setTimeout(() => { if(errorMsgDiv) errorMsgDiv.innerText = ""; }, 1800);
         }
-        
-        // Ubah nama
-        document.getElementById('ubahNamaBtn').addEventListener('click', () => {
-            let newName = prompt("Masukkan nama orang yang berulang tahun:", currentName);
-            if(newName && newName.trim() !== ""){
-                currentName = newName.trim();
-                updateUI();
-                // trigger efek kecil
-                triggerMiniSpark();
-            } else if(newName === "") {
-                alert("Nama tidak boleh kosong :)");
-            }
-        });
-        
-        // Reset ucapan ke default
-        document.getElementById('resetBtn').addEventListener('click', () => {
-            customMessage = "🌟 Semoga hari spesialmu dipenuhi cinta, tawa, dan mimpi indah.<br>Kamu luar biasa! Terima kasih telah menjadi cahaya di hidup banyak orang.<br>🥳  SELAMAT ULANG TAHUN  🥳";
-            updateUI();
-            showNotification("🎉 Ucapan direset ke awal!");
-        });
-        
-        // ------------------- MUSIK SEDERHANA (Web Audio / tone generator opsional) 
-        // kita buatkan lingkungan musik sederhana dengan Oscillator (bukan file eksternal)
-        // Agar tidak perlu file mp3, kita gunakan Web Audio API untuk nada bahagia
-        let audioCtx = null;
-        let isMusicPlaying = false;
-        let currentInterval = null;
-        
-        function playShortTone(freq, duration, type = 'sine') {
-            if(!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            // pastikan context aktif
-            if(audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-            const now = audioCtx.currentTime;
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.frequency.value = freq;
-            osc.type = type;
-            gain.gain.setValueAtTime(0.2, now);
-            gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-            osc.start();
-            osc.stop(now + duration);
+
+        function unlockBirthday() {
+            passwordScreen.style.opacity = '0';
+            passwordScreen.style.visibility = 'hidden';
+            setTimeout(() => {
+                passwordScreen.style.display = 'none';
+                birthdayContainer.classList.add('show');
+                // Mulai efek meriah otomatis saat masuk
+                startAutoMeriah();
+                // trigger balon + kembang api awal
+                triggerInitialFireworks();
+                createBalloonsMassive();
+                startConfettiRain(3);
+            }, 500);
         }
-        
-        function playBirthdayMelody() {
-            // Melodi sederhana: Happy birthday to you...
-            const melody = [ 
-                { note: 261.63, dur: 0.4 }, // C
-                { note: 261.63, dur: 0.4 },
-                { note: 293.66, dur: 0.5 }, // D
-                { note: 261.63, dur: 0.5 },
-                { note: 349.23, dur: 0.6 }, // F
-                { note: 329.63, dur: 0.8 }, // E
-                { note: 261.63, dur: 0.4 },
-                { note: 261.63, dur: 0.4 },
-                { note: 293.66, dur: 0.5 },
-                { note: 261.63, dur: 0.5 },
-                { note: 392.00, dur: 0.6 }, // G
-                { note: 349.23, dur: 0.8 },
-                { note: 261.63, dur: 0.4 },
-                { note: 261.63, dur: 0.4 },
-                { note: 523.25, dur: 0.5 }, // C5
-                { note: 440.00, dur: 0.5 }, // A
-                { note: 349.23, dur: 0.6 },
-                { note: 329.63, dur: 0.6 },
-                { note: 293.66, dur: 1.0 }
-            ];
-            let timeAcc = 0;
-            if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            if(audioCtx.state === 'suspended') audioCtx.resume();
-            for(let i=0; i<melody.length; i++) {
-                setTimeout((freq, dur) => {
-                    playShortTone(freq, dur, 'triangle');
-                }, timeAcc * 1000, melody[i].note, melody[i].dur);
-                timeAcc += melody[i].dur;
-            }
-        }
-        
-        function startBackgroundMusic() {
-            if(currentInterval) clearInterval(currentInterval);
-            // ulang melodi setiap 12 detik
-            playBirthdayMelody();
-            currentInterval = setInterval(() => {
-                if(isMusicPlaying){
-                    playBirthdayMelody();
-                }
-            }, 13000);
-        }
-        
-        function stopBackgroundMusic() {
-            if(currentInterval) {
-                clearInterval(currentInterval);
-                currentInterval = null;
-            }
-        }
-        
-        const musicToggleBtn = document.getElementById('musicToggle');
-        const musicStatusSpan = document.getElementById('musicStatus');
-        
-        function toggleMusic(){
-            if(!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if(audioCtx.state === 'suspended') {
-                audioCtx.resume().then(() => {
-                    // izinkan
-                });
-            }
-            if(!isMusicPlaying){
-                isMusicPlaying = true;
-                startBackgroundMusic();
-                musicStatusSpan.innerText = "Musik ON 🎶";
-                showNotification("🎵 Selamat Ulang Tahun! Musik ceria dimulai");
+
+        function checkPassword() {
+            const pwd = passwordInput.value.trim();
+            if(pwd === CORRECT_PASSWORD) {
+                unlockBirthday();
             } else {
-                isMusicPlaying = false;
-                stopBackgroundMusic();
-                musicStatusSpan.innerText = "Putar Musik";
-                showNotification("🔇 Musik dihentikan");
+                showError("❌ PASSWORD SALAH! Coba lagi, minta ke REXZ ya! ❌");
+                passwordInput.value = "";
+                passwordInput.focus();
+                // efek shake kecil
+                const box = document.querySelector('.password-box');
+                box.style.transform = 'shake 0.3s';
+                setTimeout(()=> box.style.transform = '', 300);
             }
         }
-        
-        musicToggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleMusic();
+
+        submitBtn.addEventListener('click', checkPassword);
+        passwordInput.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') checkPassword();
         });
-        
-        // ------------------- KEMBANG API (CANVAS) MODERN ------------------
+
+        // ---------- EFEK MERIAH OTOMATIS AWAL ----------
+        function startAutoMeriah() {
+            // Kembang api di beberapa titik otomatis
+            for(let i=0; i<12; i++) {
+                setTimeout(() => {
+                    const randX = Math.random() * window.innerWidth;
+                    const randY = Math.random() * window.innerHeight * 0.7 + 80;
+                    startFireworksAt(randX, randY, getRandomWarmColor());
+                }, i * 220);
+            }
+            // balon tambahan
+            setInterval(() => {
+                if(birthdayContainer.classList.contains('show')) {
+                    createSingleBalloon();
+                }
+            }, 2800);
+        }
+
+        function triggerInitialFireworks() {
+            // ledakan besar tengah + sekitar
+            const cx = window.innerWidth/2;
+            const cy = window.innerHeight/2;
+            for(let i=0;i<5;i++) {
+                setTimeout(() => {
+                    startFireworksAt(cx + (Math.random()-0.5)*150, cy + (Math.random()-0.5)*100, "#FFB347");
+                    startFireworksAt(cx + (Math.random()-0.5)*200, cy-50, "#FF69B4");
+                }, i*180);
+            }
+            // juga dari pojok
+            setTimeout(()=> startFireworksAt(80, 120, "#FFD966"), 400);
+            setTimeout(()=> startFireworksAt(window.innerWidth-80, 150, "#FFA07A"), 700);
+        }
+
+        function getRandomWarmColor() {
+            const colors = ["#FFB6C1","#FFA07A","#FFD700","#FF69B4","#FADADD","#FF8C00","#FF1493","#F0E68C"];
+            return colors[Math.floor(Math.random()*colors.length)];
+        }
+
+        // ---------- BALON MASSIVE ----------
+        function createBalloonsMassive() {
+            for(let i=0;i<35;i++) {
+                createSingleBalloon();
+            }
+        }
+        function createSingleBalloon() {
+            const balloonEmojis = ['🎈', '🎈', '🎀', '🎉', '✨', '🎂', '🎁', '🎈', '🕯️'];
+            const bal = document.createElement('div');
+            bal.className = 'balloon';
+            bal.innerText = balloonEmojis[Math.floor(Math.random()*balloonEmojis.length)];
+            bal.style.fontSize = (1.6 + Math.random() * 1.8) + 'rem';
+            bal.style.left = Math.random() * 100 + '%';
+            bal.style.animationDuration = 7 + Math.random() * 8 + 's';
+            bal.style.animationDelay = Math.random() * 5 + 's';
+            document.body.appendChild(bal);
+            setTimeout(() => { if(bal && bal.remove) bal.remove(); }, 13000);
+        }
+
+        // confetti sederhana
+        function startConfettiRain(durationSec = 3) {
+            const endTime = Date.now() + durationSec * 1000;
+            function addConfetti() {
+                if(Date.now() > endTime) return;
+                const conf = document.createElement('div');
+                conf.className = 'confetti-piece';
+                conf.style.left = Math.random() * 100 + '%';
+                conf.style.backgroundColor = `hsl(${Math.random() * 360}, 80%, 60%)`;
+                conf.style.width = (6 + Math.random() * 8) + 'px';
+                conf.style.height = (12 + Math.random() * 16) + 'px';
+                conf.style.animationDuration = (2 + Math.random() * 3) + 's';
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 3500);
+                requestAnimationFrame(() => { if(Date.now() < endTime) setTimeout(addConfetti, 60); });
+            }
+            for(let i=0;i<50;i++) setTimeout(addConfetti, i*25);
+        }
+
+        // ========== KEMBANG API CANVAS ==========
         const canvas = document.getElementById('fireworksCanvas');
         let ctx = canvas.getContext('2d');
         let particles = [];
-        let animationId = null;
-        let resizeHandler = null;
-        
-        function resizeCanvas() {
+        let animFrame = null;
+
+        function resizeCanvasFire() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-        });
-        resizeCanvas();
-        
-        class FireParticle {
+        window.addEventListener('resize', resizeCanvasFire);
+        resizeCanvasFire();
+
+        class ParticleFire {
             constructor(x, y, color, vx, vy) {
-                this.x = x;
-                this.y = y;
-                this.color = color;
-                this.vx = vx;
-                this.vy = vy;
-                this.gravity = 0.08;
-                this.alpha = 1;
-                this.decay = 0.018;
-                this.size = 3 + Math.random() * 4;
+                this.x = x; this.y = y; this.color = color; this.vx = vx; this.vy = vy;
+                this.gravity = 0.07; this.alpha = 1; this.decay = 0.016; this.size = 3 + Math.random() * 4;
             }
             update() {
                 this.vx *= 0.99;
                 this.vy += this.gravity;
-                this.x += this.vx;
-                this.y += this.vy;
+                this.x += this.vx; this.y += this.vy;
                 this.alpha -= this.decay;
                 return this.alpha > 0;
             }
@@ -414,161 +497,157 @@
                 ctx.restore();
             }
         }
-        
-        function createExplosion(x, y, colorTheme = null) {
-            const colors = ['#FFB6C1', '#FF69B4', '#FFA07A', '#FADADD', '#F0E68C', '#FFD700', '#FF8C00', '#FF1493'];
-            let baseColors = colorTheme ? [colorTheme] : colors;
-            let count = 38 + Math.floor(Math.random() * 35);
-            for(let i=0; i<count; i++) {
-                let angle = Math.random() * Math.PI * 2;
-                let speed = 1.8 + Math.random() * 4;
-                let vx = Math.cos(angle) * speed * (Math.random() * 1.2);
-                let vy = Math.sin(angle) * speed * (Math.random() * 1.2);
-                let col = baseColors[Math.floor(Math.random() * baseColors.length)];
-                particles.push(new FireParticle(x, y, col, vx, vy));
+
+        function createExplosionFX(x, y, baseColor=null) {
+            const colorPal = baseColor ? [baseColor] : ['#FFB6C1','#FF69B4','#FFD700','#FFA07A','#FF6347','#FF1493','#FADADD'];
+            let count = 38 + Math.floor(Math.random() * 40);
+            for(let i=0;i<count;i++) {
+                let angle = Math.random() * Math.PI*2;
+                let speed = 1.5 + Math.random() * 4.5;
+                let vx = Math.cos(angle)*speed*(Math.random()*1.2);
+                let vy = Math.sin(angle)*speed*(Math.random()*1.2);
+                let col = colorPal[Math.floor(Math.random()*colorPal.length)];
+                particles.push(new ParticleFire(x, y, col, vx, vy));
             }
         }
-        
-        function animateFireworks() {
+
+        function animateFireCanvas() {
             if(!ctx) return;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            let keepAnim = false;
-            for(let i=0; i<particles.length; i++) {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            let active = false;
+            for(let i=0;i<particles.length;i++) {
                 let alive = particles[i].update();
                 particles[i].draw(ctx);
-                if(alive) keepAnim = true;
-                else {
-                    particles.splice(i,1);
-                    i--;
-                }
+                if(alive) active = true;
+                else { particles.splice(i,1); i--; }
             }
-            if(keepAnim || particles.length > 0) {
-                animationId = requestAnimationFrame(animateFireworks);
+            if(active || particles.length) {
+                animFrame = requestAnimationFrame(animateFireCanvas);
             } else {
-                if(animationId) cancelAnimationFrame(animationId);
-                animationId = null;
+                if(animFrame) cancelAnimationFrame(animFrame);
+                animFrame = null;
             }
         }
-        
-        function startFireworksAt(x, y, customColor=null) {
-            createExplosion(x, y, customColor);
-            if(animationId === null) {
-                animateFireworks();
-            }
-            // juga buat beberapa ledakan kecil di sekitar
-            for(let i=0;i<2;i++) {
-                setTimeout(() => {
-                    createExplosion(x + (Math.random()-0.5)*40, y+(Math.random()-0.5)*40, customColor);
-                    if(animationId===null) animateFireworks();
-                }, i*70);
-            }
+
+        function startFireworksAt(x, y, color=null) {
+            createExplosionFX(x, y, color);
+            if(animFrame === null) animateFireCanvas();
+            for(let s=0;s<2;s++) setTimeout(()=> {
+                createExplosionFX(x+(Math.random()-0.5)*40, y+(Math.random()-0.5)*30, color);
+                if(animFrame===null) animateFireCanvas();
+            }, 70*s);
         }
-        
-        function randomFireworksFull() {
-            for(let i=0;i<6;i++) {
-                setTimeout(() => {
+
+        function bigFireworkDisplay() {
+            for(let i=0;i<14;i++) {
+                setTimeout(()=> {
                     const randX = Math.random() * canvas.width;
-                    const randY = Math.random() * canvas.height * 0.7 + 50;
-                    startFireworksAt(randX, randY);
-                }, i*150);
+                    const randY = Math.random() * canvas.height * 0.8 + 50;
+                    startFireworksAt(randX, randY, getRandomWarmColor());
+                }, i*130);
             }
+            startConfettiRain(4);
         }
-        
-        // trigger mini spark saat ubah nama
-        function triggerMiniSpark() {
-            const rect = canvas.getBoundingClientRect();
-            const centerX = window.innerWidth/2;
-            const centerY = window.innerHeight/2;
-            startFireworksAt(centerX, centerY, "#FFD966");
-            setTimeout(() => {
-                startFireworksAt(centerX-40, centerY-20, "#FFA07A");
-            }, 100);
-        }
-        
-        // Event tombol kejutan kembang api
-        document.getElementById('kejutanBtn').addEventListener('click', (e) => {
+
+        // tombol kejutan
+        document.getElementById('kejutanKembangApi')?.addEventListener('click', (e) => {
             e.stopPropagation();
-            randomFireworksFull();
-            showNotification("🎆✨ SELAMAT! Kembang Api Cinta Untukmu ✨🎆");
-            // mainkan nada kecil
-            if(audioCtx && audioCtx.state !== 'suspended') {
-                playShortTone(523.25, 0.3, 'sine');
-                setTimeout(()=> playShortTone(659.25, 0.3), 150);
-            }
+            bigFireworkDisplay();
+            playShortBeep(523, 0.2);
         });
-        
-        // klik di body / card juga bisa memicu kembang api kecil (tapi tidak mengganggu tombol)
+
+        // klik body untuk kembang api kecil
         document.body.addEventListener('click', (e) => {
-            // jangan jika klik tombol atau music note
-            if(e.target.closest('button') || e.target.closest('#musicToggle')) return;
-            const x = e.clientX;
-            const y = e.clientY;
-            if(x && y) {
-                startFireworksAt(x, y, "#FFB7C5");
-            } else {
-                // fallback center
-                startFireworksAt(window.innerWidth/2, window.innerHeight/2, "#FFB7C5");
-            }
-            playShortTone(440, 0.2, 'sine');
+            if(!birthdayContainer.classList.contains('show')) return;
+            if(e.target.closest('button') || e.target.closest('#musicToggleIcon')) return;
+            const mx = e.clientX, my = e.clientY;
+            if(mx && my) startFireworksAt(mx, my, "#FFC0CB");
+            else startFireworksAt(window.innerWidth/2, window.innerHeight/2, "#FFC0CB");
+            playShortBeep(440, 0.1);
         });
-        
-        // Notifikasi kecil (toast style)
-        function showNotification(msg) {
-            let toast = document.createElement('div');
-            toast.innerText = msg;
-            toast.style.position = 'fixed';
-            toast.style.bottom = '80px';
-            toast.style.left = '50%';
-            toast.style.transform = 'translateX(-50%)';
-            toast.style.backgroundColor = '#ff6f91';
-            toast.style.color = 'white';
-            toast.style.padding = '8px 20px';
-            toast.style.borderRadius = '40px';
-            toast.style.fontWeight = 'bold';
-            toast.style.zIndex = '1000';
-            toast.style.fontSize = '0.9rem';
-            toast.style.boxShadow = '0 5px 12px black';
-            toast.style.backdropFilter = 'blur(8px)';
-            document.body.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                setTimeout(() => toast.remove(), 400);
-            }, 2000);
+
+        // ---------- MUSIK SEDERHANA (Web Audio) ----------
+        let audioCtx = null;
+        let musicInterval = null;
+        let isMusicOn = false;
+        const musicStatusSpan = document.getElementById('musicStatusText');
+        const musicBtn = document.getElementById('musikBtn');
+        const musicIcon = document.getElementById('musicToggleIcon');
+
+        function playTone(freq, duration, type='sine') {
+            if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if(audioCtx.state === 'suspended') audioCtx.resume();
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.frequency.value = freq;
+            osc.type = type;
+            gain.gain.setValueAtTime(0.2, now);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now+duration);
+            osc.start(); osc.stop(now+duration);
         }
-        
-        // Balon latar belakang
-        function createBalloons() {
-            const balloonArr = ['🎈', '🎈', '🎈', '🎈', '🎀', '🎉', '✨', '🎂'];
-            for(let i=0;i<18;i++) {
-                let balloon = document.createElement('div');
-                balloon.className = 'balloon';
-                balloon.innerText = balloonArr[Math.floor(Math.random()*balloonArr.length)];
-                let size = 1.4 + Math.random() * 1.5;
-                balloon.style.fontSize = `${size}rem`;
-                balloon.style.left = `${Math.random() * 100}%`;
-                balloon.style.animationDuration = `${6 + Math.random() * 8}s`;
-                balloon.style.animationDelay = `${Math.random() * 8}s`;
-                document.body.appendChild(balloon);
+        function playShortBeep(freq, dur){ if(audioCtx) playTone(freq,dur,'sine');}
+
+        function playHappyBirthdayMelody() {
+            const melodyNotes = [
+                {f:261.63, d:0.4},{f:261.63, d:0.4},{f:293.66, d:0.5},{f:261.63, d:0.5},{f:349.23, d:0.6},
+                {f:329.63, d:0.8},{f:261.63, d:0.4},{f:261.63, d:0.4},{f:293.66, d:0.5},{f:261.63, d:0.5},
+                {f:392.00, d:0.6},{f:349.23, d:0.8},{f:261.63, d:0.4},{f:261.63, d:0.4},{f:523.25, d:0.5},
+                {f:440.00, d:0.5},{f:349.23, d:0.6},{f:329.63, d:0.6},{f:293.66, d:1.0}
+            ];
+            let acc = 0;
+            if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if(audioCtx.state === 'suspended') audioCtx.resume();
+            for(let i=0;i<melodyNotes.length;i++) {
+                setTimeout((freq,dur)=> playTone(freq,dur,'triangle'), acc*1000, melodyNotes[i].f, melodyNotes[i].d);
+                acc += melodyNotes[i].d;
             }
         }
-        createBalloons();
-        
-        // Inisialisasi: jika user klik pertama kali pada document untuk mengaktifkan audio
-        const enableAudioOnFirstTouch = () => {
-            if(audioCtx && audioCtx.state === 'suspended') {
-                audioCtx.resume();
-                showNotification("🔊 Suara aktif! Klik tombol musik jika ingin melodi🎵");
+
+        function startBackgroundMusicLoop() {
+            if(musicInterval) clearInterval(musicInterval);
+            playHappyBirthdayMelody();
+            musicInterval = setInterval(() => {
+                if(isMusicOn && birthdayContainer.classList.contains('show')) playHappyBirthdayMelody();
+            }, 15000);
+        }
+        function stopMusicLoop() { if(musicInterval) { clearInterval(musicInterval); musicInterval=null; } }
+
+        function toggleMusic() {
+            if(!birthdayContainer.classList.contains('show')) return;
+            if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if(audioCtx.state === 'suspended') audioCtx.resume();
+            if(!isMusicOn) {
+                isMusicOn = true;
+                startBackgroundMusicLoop();
+                musicStatusSpan.innerText = "Musik ON 🎶";
+                musicBtn.innerText = "⏸️ HENTIKAN MUSIK";
+            } else {
+                isMusicOn = false;
+                stopMusicLoop();
+                musicStatusSpan.innerText = "Musik Off";
+                musicBtn.innerText = "🎵 PUTAR MUSIK HBD 🎵";
             }
-            document.removeEventListener('click', enableAudioOnFirstTouch);
-            document.removeEventListener('touchstart', enableAudioOnFirstTouch);
+        }
+        musicBtn.addEventListener('click', toggleMusic);
+        musicIcon.addEventListener('click', toggleMusic);
+        
+        // enable audio after first user interaction
+        const enableAudio = () => {
+            if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+            document.removeEventListener('click', enableAudio);
+            document.removeEventListener('touchstart', enableAudio);
         };
-        document.addEventListener('click', enableAudioOnFirstTouch);
-        document.addEventListener('touchstart', enableAudioOnFirstTouch);
-        
-        // Tampilkan pesan selamat datang kecil
-        setTimeout(() => {
-            showNotification("🎂 Selamat Ulang Tahun! Klik di mana saja untuk kembang api ✨");
-        }, 500);
+        document.addEventListener('click', enableAudio);
+        document.addEventListener('touchstart', enableAudio);
+
+        // efek suara notifikasi ringan
+        window.triggerInitialFireworks = triggerInitialFireworks;
+        // memastikan balon terus berjalan
+        setInterval(()=> {
+            if(birthdayContainer.classList.contains('show') && Math.random()<0.4) createSingleBalloon();
+        }, 3500);
     })();
 </script>
 </body>
